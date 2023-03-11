@@ -4,7 +4,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 
-    id("com.google.devtools.ksp")
+    kotlin("kapt")
     id("com.google.dagger.hilt.android")
 }
 
@@ -81,10 +81,10 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.6.1")
 
     implementation("com.google.dagger:hilt-android:2.45")
-    ksp("com.google.dagger:hilt-android-compiler:2.45")
+    kapt("com.google.dagger:hilt-android-compiler:2.45")
 
     implementation("androidx.room:room-runtime:2.5.0")
-    ksp("androidx.room:room-compiler:2.5.0")
+    kapt("androidx.room:room-compiler:2.5.0")
 
     implementation("androidx.room:room-ktx:2.5.0")
 
@@ -96,4 +96,9 @@ dependencies {
     implementation("io.noties.markwon:linkify:4.6.2")
 
     testImplementation("junit:junit:4.13.2")
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }

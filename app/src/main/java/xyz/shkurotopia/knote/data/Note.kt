@@ -12,7 +12,7 @@ data class Note(
     @ColumnInfo(name = "title")             val title: String,
     @ColumnInfo(name = "content")           val content: String,
     @ColumnInfo(name = "timestamp")         val timestamp: Long,
-    @ColumnInfo(name = "category")          val category: Int = 1
+    @ColumnInfo(name = "category")          val category: Int = 0
 ) {
     class InvalidNoteException(msg: String): Exception(msg)
 

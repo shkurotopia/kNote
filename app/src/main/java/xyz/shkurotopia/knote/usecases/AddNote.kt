@@ -1,12 +1,11 @@
 package xyz.shkurotopia.knote.usecases
 
 import android.util.Log
+import xyz.shkurotopia.knote.data.INoteRepository
 import xyz.shkurotopia.knote.data.Note
-import xyz.shkurotopia.knote.data.NoteRepository
-import kotlin.jvm.Throws
 
 class AddNote(
-    private val noteRepository: NoteRepository
+    private val noteRepository: INoteRepository
 ) {
 
     @Throws(Note.InvalidNoteException::class)

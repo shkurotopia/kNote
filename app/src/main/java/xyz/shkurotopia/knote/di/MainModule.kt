@@ -33,9 +33,9 @@ object MainModule {
     @Singleton
     fun provideNoteRepository(db: NoteDatabase): INoteRepository = NoteRepository(db.noteDao)
 
-    @Provides
     @Singleton
-    fun provideUseCases(repo: NoteRepository): UseCases = UseCases(
+    @Provides
+    fun provideUseCases(repo: INoteRepository): UseCases = UseCases(
         addNote = AddNote(repo),
         deleteNote = DeleteNote(repo),
         getNote = GetNote(repo),

@@ -16,7 +16,7 @@
         android:theme="@style/Theme.KNote"
         tools:targetApi="31">
         <activity
-            android:name=".NoteActivity"
+            android:name=".presentation.NoteActivity"
             android:exported="true"
             android:theme="@style/Theme.KNote">
             <intent-filter>

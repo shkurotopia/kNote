@@ -1,4 +1,4 @@
-package xyz.shkurotopia.knote
+package xyz.shkurotopia.knote.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import dagger.hilt.android.AndroidEntryPoint
-import xyz.shkurotopia.knote.ui.theme.KNoteTheme
+import xyz.shkurotopia.knote.presentation.theme.KNoteTheme
 
 @AndroidEntryPoint
 class NoteActivity : ComponentActivity() {

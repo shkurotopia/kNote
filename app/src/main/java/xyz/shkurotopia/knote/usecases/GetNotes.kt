@@ -9,7 +9,7 @@ import xyz.shkurotopia.knote.data.Note
 class GetNotes(
     private val noteRepository: INoteRepository
 ) {
-    suspend operator fun invoke(): Flow<List<Note>> {
+    operator fun invoke(): Flow<List<Note>> {
         val rows = noteRepository.getNotes().map { notes ->
             Log.d(TAG, "Fetched ${notes.size} rows")
 

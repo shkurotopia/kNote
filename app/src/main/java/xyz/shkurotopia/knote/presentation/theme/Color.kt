@@ -1,4 +1,4 @@
-package xyz.shkurotopia.knote.ui.theme
+package xyz.shkurotopia.knote.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

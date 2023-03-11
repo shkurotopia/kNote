@@ -16,19 +16,19 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EditorViewModel @Inject constructor(
-    private val noteUseCases: UseCases,
+    private val useCases: UseCases,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val _noteTitle = mutableStateOf(
-        TextFieldState(hint = "Enter title...")
+        EditorState(hint = "Enter title...")
     )
-    val noteTitle: State<TextFieldState> = _noteTitle
+    val noteTitle: State<EditorState> = _noteTitle
 
     private val _noteContent = mutableStateOf(
-        TextFieldState(hint = "Enter note text...")
+        EditorState(hint = "Enter note text...")
     )
-    val noteContent: State<TextFieldState> = _noteContent
+    val noteContent: State<EditorState> = _noteContent
 
     private val _noteCategory = mutableStateOf<Int>(0)
     val noteCategory: State<Int> = _noteCategory
@@ -42,7 +42,7 @@ class EditorViewModel @Inject constructor(
         savedStateHandle.get<Int>("noteId")?.let { noteId ->
             if (noteId != -1) {
                 viewModelScope.launch {
-                    noteUseCases.getNote(noteId)?.also { note ->
+                    useCases.getNote(noteId)?.also { note ->
                         currentNoteId = note.id
 
                         _noteTitle.value = noteTitle.value.copy(
@@ -98,7 +98,7 @@ class EditorViewModel @Inject constructor(
                     )
 
                     try {
-                        noteUseCases.addNote(note)
+                        useCases.addNote(note)
                         _eventFlow.emit(UiEvent.SaveNote)
                         Log.d(TAG, "Note Successfully aded")
                     } catch (ex: Note.InvalidNoteException) {

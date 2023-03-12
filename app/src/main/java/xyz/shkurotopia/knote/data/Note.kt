@@ -16,5 +16,9 @@ data class Note(
 ) {
     class InvalidNoteException(msg: String): Exception(msg)
 
+    companion object {
+        val noteCategories = listOf<Int>(0, 1, 2, 3)
+    }
+
     override fun toString(): String = id.toString()
 }

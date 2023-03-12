@@ -34,6 +34,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
 
         debug {
@@ -96,10 +97,12 @@ dependencies {
     implementation("io.noties.markwon:editor:4.6.2")
     implementation("io.noties.markwon:ext-strikethrough:4.6.2")
     implementation("io.noties.markwon:ext-tasklist:4.6.2")
-    implementation("io.noties.markwon:image-glide:4.6.2")
+    implementation("io.noties.markwon:image-coil:4.6.2")
     implementation("io.noties.markwon:linkify:4.6.2")
 
     testImplementation("junit:junit:4.13.2")
+
+    implementation("io.coil-kt:coil:2.2.2")
 }
 
 // Allow references to generated code

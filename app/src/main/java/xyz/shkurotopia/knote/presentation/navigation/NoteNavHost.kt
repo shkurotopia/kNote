@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import xyz.shkurotopia.knote.presentation.editorview.EditorView
 import xyz.shkurotopia.knote.presentation.notelistview.NoteListView
 
 @Composable
@@ -17,7 +18,7 @@ fun NoteNavHost() {
         startDestination = NavRoute.NOTE_LIST_SCREEN
     ) {
         composable(route = NavRoute.NOTE_LIST_SCREEN) {
-           NoteListView(navController = navController) 
+           NoteListView(navController = navController)
         }
 
         composable(
@@ -29,13 +30,12 @@ fun NoteNavHost() {
                 },
                 navArgument("noteCategory") {
                     type = NavType.IntType
-                    defaultValue = 1
+                    defaultValue = 0
                 }
             )
         ) {
-            val noteCategory = it.arguments?.getInt("noteCategory") ?: -1
 
-            //TODO Add EditorScreen()
+            EditorView(navController = navController)
         }
     }
 }

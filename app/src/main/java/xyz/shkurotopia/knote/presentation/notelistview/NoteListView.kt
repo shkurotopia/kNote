@@ -2,9 +2,10 @@ package xyz.shkurotopia.knote.presentation.notelistview
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.core.MutableTransitionState
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.consumedWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -38,7 +39,7 @@ import xyz.shkurotopia.knote.viewmodel.NoteListEvent
 import xyz.shkurotopia.knote.viewmodel.NoteListViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun NoteListView(
     navController: NavController,
@@ -62,17 +63,17 @@ fun NoteListView(
         },
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
-            //TODO Fix FAB borders
             FloatingActionButton(
                 onClick = { navController.navigate(NavRoute.EditorScreen.route) }
             ) { Icon(imageVector = Icons.Default.Add, contentDescription = "Add Note") }
         },
-        snackbarHost = { SnackbarHost(snackbarHostState) }
+        snackbarHost = { SnackbarHost(snackbarHostState) },
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 16.dp, start = 16.dp, end = 16.dp)
+                .consumedWindowInsets(it)
+                .padding(it),
         ) {
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -83,12 +84,7 @@ fun NoteListView(
                         NoteItem(
                             note = note,
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable {
-                                    navController.navigate(
-                                        NavRoute.EditorScreen.route + "?noteId=${note.id}&noteColor=${note.category}"
-                                    )
-                                },
+                                .fillMaxWidth(),
                             onDeleteClick = {
                                 viewModel.onEvent(NoteListEvent.DeleteNote(note))
                                 scope.launch {
@@ -100,6 +96,11 @@ fun NoteListView(
                                         viewModel.onEvent(NoteListEvent.RestoreNote)
                                     }
                                 }
+                            },
+                            onClick = {
+                                navController.navigate(
+                                    NavRoute.EditorScreen.route + "?noteId=${note.id}&noteColor=${note.category}"
+                                )
                             }
                         )
                         Spacer(modifier = Modifier.height(8.dp))
@@ -113,6 +114,5 @@ fun NoteListView(
                 EmptyScreenText()
             }
         }
-
     }
 }

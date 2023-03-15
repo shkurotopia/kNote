@@ -1,8 +1,6 @@
 package xyz.shkurotopia.knote.presentation.editorview
 
 import android.annotation.SuppressLint
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -42,7 +40,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.flow.collectLatest
 import xyz.shkurotopia.knote.data.Note
-import xyz.shkurotopia.knote.presentation.markdown.MdEditor
 import xyz.shkurotopia.knote.viewmodel.EditorEvents
 import xyz.shkurotopia.knote.viewmodel.EditorViewModel
 
@@ -148,38 +145,23 @@ fun EditorView(
                 },
                 isHintVisible = titleState.isHintVisible,
                 singleLine = true,
-                textStyle = MaterialTheme.typography.bodyLarge,
+                textStyle = MaterialTheme.typography.headlineSmall
             )
             Divider(thickness = 1.dp, color = MaterialTheme.colorScheme.tertiary)
             Spacer(modifier = Modifier.height(16.dp))
 
-            MdEditor(
-                txt = contentState.text,
-                modifier = Modifier.fillMaxWidth(),
+            TransparentHintTextFiled(
+                text = contentState.text,
+                hint = contentState.hint,
+                onValueChange = {
+                    viewModel.onEvent(EditorEvents.ChangeContent(it))
+                },
                 onFocusChange = {
                     viewModel.onEvent(EditorEvents.ChangeContentFocus(it))
                 },
-                textWatcher = object : TextWatcher {
-                    override fun afterTextChanged(s: Editable?) {
-                    }
-
-                    override fun beforeTextChanged(
-                        s: CharSequence?,
-                        start: Int,
-                        count: Int,
-                        after: Int
-                    ) {
-                    }
-
-                    override fun onTextChanged(
-                        s: CharSequence?,
-                        start: Int,
-                        before: Int,
-                        count: Int
-                    ) {
-                        viewModel.onEvent(EditorEvents.ChangeContent(s.toString()))
-                    }
-                }
+                isHintVisible = contentState.isHintVisible,
+                singleLine = true,
+                textStyle = MaterialTheme.typography.bodyLarge,
             )
         }
     }

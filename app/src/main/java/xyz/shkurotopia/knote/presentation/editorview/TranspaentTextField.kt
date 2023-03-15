@@ -1,7 +1,6 @@
 package xyz.shkurotopia.knote.presentation.editorview
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
@@ -46,32 +45,3 @@ fun TransparentHintTextFiled(
     }
 }
 
-@Composable
-fun TransparentHintTextFiledContent(
-    text: String,
-    hint: String,
-    modifier: Modifier = Modifier,
-    isHintVisible: Boolean = true,
-    onValueChange: (String) -> Unit,
-    textStyle: TextStyle = TextStyle(),
-    singleLine: Boolean = false,
-    testTag:String="",
-    onFocusChange: (FocusState) -> Unit
-) {
-    Box(modifier = modifier) {
-        BasicTextField(
-            value = text,
-            onValueChange = onValueChange,
-            singleLine = singleLine,
-            textStyle = textStyle,
-            keyboardOptions = KeyboardOptions.Default.copy(capitalization = KeyboardCapitalization.Sentences),
-            modifier = Modifier
-                .testTag(testTag)
-                .fillMaxSize()
-                .onFocusChanged { onFocusChange(it) }
-        )
-        if (isHintVisible) {
-            Text(text = hint, style = textStyle, color = Color.DarkGray)
-        }
-    }
-}
